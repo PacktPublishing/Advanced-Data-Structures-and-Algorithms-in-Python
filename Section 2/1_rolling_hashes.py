@@ -15,18 +15,15 @@ def rolling_hashes(str):
     f_backward = 0
     p_power = 1
     max_suffix_palindrome = 0
-    for len, c in enumerate(str_rev):
+    for i, c in enumerate(str_rev):
         c_idx = ord(c) - ord('a')
-        f_backward = (f_backward + c_idx * p_power) % P
-        f_forward = (f_forward * p + c_idx) % P
-        p_power *= p
-
-        #print(str_rev[:len+1], f_backward, f_forward)
-
-        if f_backward == f_forward:
-            max_suffix_palindrome = len
-
+        f_forward = (f_forward + c_idx*p_power) % P
+        f_backward = (f_backward*p + c_idx) % P
+        p_power *= p # p_power %= P?
+        if f_forward == f_backward:
+            max_suffix_palindrome = i
     return str + str_rev[max_suffix_palindrome+1:]
+
 
 str = 'loaded'
 print(naive(str))
