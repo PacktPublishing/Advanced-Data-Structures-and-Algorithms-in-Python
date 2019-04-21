@@ -2,6 +2,7 @@ import numpy as np
 
 inf = 10 ** 18
 
+
 def generate_d(n):
     d = np.zeros((n, n), dtype=np.int64)
     for i in range(n):
@@ -11,6 +12,7 @@ def generate_d(n):
                 d[i, j] = inf
             d[j, i] = d[i, j]
     return d
+
 
 def brute_force(n, d):
 
@@ -27,6 +29,7 @@ def brute_force(n, d):
         return best
 
     return inner(0, 0)
+
 
 def run_dp(n, d):
     dp = np.ones((2 ** n, n)) * inf
@@ -46,6 +49,7 @@ def run_dp(n, d):
     for c in range(1, n):
         best = min(best, dp[final_state, c] + d[c, 0])
     return best
+
 
 for i in range(10):
     n = np.random.randint(2, 5)
