@@ -33,10 +33,13 @@ def brute_force(n, d):
 
 def run_dp(n, d):
     dp = np.ones((2 ** n, n)) * inf
+    # dp[S, c] = sum of the minimum sum tour that visits all cities
+    #            corresponding to the indexes of the set bits in S [...]
+    # S = 10011 => 0, 1, 4
     for c in range(1, n):
-        dp[1 << c, c] = d[0, c]
+        dp[1 << c, c] = d[0, c] # 1 << 3 => 1000
 
-    for S in range(0, 2**n - 1):
+    for S in range(2**n - 1): # 111...1110
         for c in range(1, n):
             if S & (1 << c) != 0:
                 S_no_c = S - (1 << c)
@@ -49,6 +52,7 @@ def run_dp(n, d):
     for c in range(1, n):
         best = min(best, dp[final_state, c] + d[c, 0])
     return best
+
 
 
 for i in range(10):
